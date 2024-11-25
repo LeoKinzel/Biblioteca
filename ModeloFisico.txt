@@ -1,0 +1,67 @@
+/* MapaLogico: */
+
+CREATE TABLE Livro (
+    id number PRIMARY KEY,
+    nome varchar,
+    categoria varchar,
+    editora varchar,
+    dataLancamento varchar
+);
+
+CREATE TABLE Usuario (
+    id number PRIMARY KEY,
+    nome varchar,
+    cpf number,
+    dataNascimento date
+);
+
+CREATE TABLE Emprestimo (
+    id number PRIMARY KEY,
+    fk_Cliente_id number,
+    fk_Funcionaro_id number
+);
+
+CREATE TABLE Funcionaro (
+    id number PRIMARY KEY,
+    fk_Usuario_id number
+);
+
+CREATE TABLE Cliente (
+    id number PRIMARY KEY,
+    fk_Usuario_id number
+);
+
+CREATE TABLE Possui (
+    fk_Livro_id number,
+    fk_Emprestimo_id number
+);
+ 
+ALTER TABLE Emprestimo ADD CONSTRAINT FK_Emprestimo_2
+    FOREIGN KEY (fk_Cliente_id)
+    REFERENCES Cliente (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Emprestimo ADD CONSTRAINT FK_Emprestimo_3
+    FOREIGN KEY (fk_Funcionaro_id)
+    REFERENCES Funcionaro (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Funcionaro ADD CONSTRAINT FK_Funcionaro_2
+    FOREIGN KEY (fk_Usuario_id)
+    REFERENCES Usuario (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Cliente ADD CONSTRAINT FK_Cliente_2
+    FOREIGN KEY (fk_Usuario_id)
+    REFERENCES Usuario (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_1
+    FOREIGN KEY (fk_Livro_id)
+    REFERENCES Livro (id)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
+    FOREIGN KEY (fk_Emprestimo_id)
+    REFERENCES Emprestimo (id)
+    ON DELETE SET NULL;
