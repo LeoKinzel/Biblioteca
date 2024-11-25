@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, date, timedelta
+import sys
+
 
 
 class usuario(ABC):
@@ -91,8 +93,61 @@ class emprestimo():
         return self.dataEmprestimo
     
     def getDataDevolucaoPrevista(self):
-        return self.getDataDevolucaoPrevista
+        return self.dataDevolucaoPrevista
     
     def getDataDevolucao(self):
-        return self.getDataDevolucao
+        return self.dataDevolucao
 
+class menu():
+    
+    def menuPrincipal(self):
+        print("==SISTEMA BIBLIOTECA==\n")
+        print("1. Cadastros")
+        print("2. Consultas")
+        print("3. Novo Emprestimo")
+        print("4. Devolve Livro")
+        print("5. Sair")
+        opcao = None
+        opcao = int(input("Opção Desejada: "))
+
+        if(opcao > 5 or opcao < 1):        #RETORNA 0 CASO A OPÇÃO SELECIONADA SEJA INVALIDA
+            opcao = 0
+        
+        if(opcao == 5):                     #ENCERRA O PROGRAMA
+            sys.exit()
+
+        return opcao                        #RETORNA A OPÇÃO
+
+    def menuCadastro(self):
+        print("==CADASTRO==\n")
+        print("1. Usuario")
+        print("2. Livro")
+        print("3. Sair")
+        opcao = None
+        opcao = int(input("Opção Desejada: "))
+
+        if(opcao > 3 or opcao < 1):        #RETORNA 0 CASO A OPÇÃO SELECIONADA SEJA INVALIDA
+            opcao = 0
+
+        if(opcao == 3):                     #ENCERRA O PROGRAMA
+            sys.exit()
+        
+        return opcao                        #RETORNA A OPÇÃO
+    
+    def menuConsulta(self):
+        print("==CONSULTA==\n")
+        print("1. Usuarios")
+        print("2. Livros")
+        print("3. Emprestimos")
+        print("4. Sair")
+        opcao = None
+        opcao = int(input("Opção Desejada: "))
+
+        if(opcao > 4 or opcao < 1):        #RETORNA 0 CASO A OPÇÃO SELECIONADA SEJA INVALIDA
+            opcao = 0
+
+        if(opcao == 4):                     #ENCERRA O PROGRAMA
+            sys.exit()
+        
+        return opcao                        #RETORNA A OPÇÃO
+    
