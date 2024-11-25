@@ -1,4 +1,6 @@
-from abc import ABC, abstractmethod
-from datetime import datetime, date, timedelta
+from bibliotecaClasse import biblioteca
+from bibliotecaViews import *
 
-print("Sistema ")
+biblioteca = biblioteca()
+
+biblioteca.consultarLivros()

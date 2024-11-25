@@ -1,14 +1,17 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, date, timedelta
 from bibliotecaSubClasses import *
+from bibliotecaViews import dbConsultas
 
 def biblioteca():
     
     def __init__(self):
+        self.db = dbConsultas("biblioteca")
         self.usuarios = []  # Lista de usuários (clientes e funcionários)
-        self.livros = []    # Lista de livros
+        self.livros = self.db.consultaTodosLivros()
         self.emprestimos = []  # Lista de empréstimos
         self.menu = menu()  # Instancia o menu para interações
+        self.db.dbClose()
 
     def adicionarUsuario(self, usuario):
         self.usuarios.append(usuario)
@@ -23,15 +26,15 @@ def biblioteca():
 
     #def devolverLivro(self, emprestimo, dataDevolucao):         VERIFICAR
 
-    def listaUsuarios(self):
+    def listarUsuarios(self):
         for usuario in self.usuarios:
             print(f"Nome: {usuario.getNome()}, CPF: {usuario.getCpf()}")
 
-    def consultar_livros(self):
+    def consultarLivros(self):
         for livro in self.livros:
             print(f"Nome: {livro.getNome()}, Categoria: {livro.getCategoria()}, Editora: {livro.getEditora()}")
     
-    def exibir_menu(self):
+    def exibirMenu(self):
         opcao = None
         while opcao != 5:
             opcao = self.menu.menuPrincipal()
