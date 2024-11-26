@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, date, timedelta
 from bibliotecaSubClasses import *
-from bibliotecaViews import dbConsultas
+from bibliotecaDb import dbConsultas
 import os
 
 
@@ -14,11 +14,29 @@ class biblioteca():
         self.emprestimos = [emprestimo(e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[8]) for e in self.db.consultaTodosEmprestimos()]
         self.menu = menu()  # Instancia o menu para interações
 
-    def adicionarUsuario(self, usuario):
-        self.usuarios.append(usuario)
+    def atualizarDados(self):
+        self.usuarios = [cliente(c[1], c[2]) for c in self.db.consultaTodosClientes()]
+        self.livros = [livro(l[1], l[2], l[3], l[4]) for l in self.db.consultaTodosLivros()]
+        self.emprestimos = [emprestimo(e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[8]) for e in self.db.consultaTodosEmprestimos()]
 
-    def adicionarLivro(self, livro):
-        self.livros.append(livro)
+    def adicionarUsuarios(self):
+        nome = input("Nome: ")
+        cpf = input("Cpf: ")
+        data = input("Data de Nascimento: ")
+        self.db.adicionarUsuario(nome, cpf, data)
+        self.atualizarDados()
+        print("\nUsuario Adicionado!")
+        input()
+
+    def adicionarLivro(self):
+        nome = input("Nome: ")
+        categoria = input("Categoria: ")
+        editora = input("Editora: ")
+        dataLancamento = input("DataLancamento: ")
+        self.db.adicionarLivro(nome, categoria, editora, dataLancamento)
+        self.atualizarDados()
+        print("\nLivro Adicionado!")
+        input()
 
     def realizarEmprestimo(self, funcionario, cliente, livros, dataEmprestimo):
         novoEmprestimo = emprestimo(funcionario, cliente, livros, dataEmprestimo)
@@ -60,6 +78,21 @@ class biblioteca():
             if opcao == 1:
                 os.system('cls')
                 opcao = self.menu.menuCadastro()
+                while opcao !=4:
+                    if opcao == 1:
+                        os.system('cls')
+                        self.adicionarUsuarios()
+                        opcao = 0
+                        break
+                    elif opcao == 2:
+                        os.system('cls')
+                        self.adicionarLivro()
+                        opcao = 0
+                        break
+                    elif opcao == 3:
+                        os.system('cls')
+                        opcao = 5
+                        break
             elif opcao == 2:
                 os.system('cls')
                 opcao = self.menu.menuConsulta()

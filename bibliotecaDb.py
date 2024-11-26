@@ -44,3 +44,26 @@ class dbConsultas():
         query = "SELECT * FROM TodosEmprestimosCorrentes"
         self.cursor.execute(query)
         return self.cursor.fetchall()
+
+    def adicionarUsuario(self, nome, cpf, dataNascimento):
+        query = """
+            INSERT INTO Usuario (nome, cpf, dataNascimento)
+            VALUES (?, ?, ?)
+            RETURNING id;
+        """
+        self.cursor.execute(query, (nome, int(cpf), dataNascimento))
+        userId = self.cursor.fetchone()[0]
+        query = """
+            INSERT INTO Cliente (fk_Usuario_id)
+            VALUES (?);
+        """
+        self.cursor.execute(query, (int(userId),))
+        self.conexao.commit()
+
+    def adicionarLivro(self, nome, categoria, editora, dataLancamento):
+        query = """
+            INSERT INTO Livro (nome, categoria, editora, dataLancamento)
+            VALUES (?, ?, ?, ?);
+        """
+        self.cursor.execute(query, (nome, categoria, editora, dataLancamento))
+        self.conexao.commit()
