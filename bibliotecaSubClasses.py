@@ -1,15 +1,16 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, date, timedelta
 import sys
+import os
+
 
 
 
 class usuario(ABC):
 
-    def __init__(self, nome, cpf, dataNascimento):
+    def __init__(self, nome, cpf):
         self.nome = nome
         self.cpf = cpf
-        self.dataNascimento = dataNascimento
 
     @abstractmethod
     def getNome(self):
@@ -17,16 +18,12 @@ class usuario(ABC):
 
     @abstractmethod
     def getCpf(self):
-        pass
-
-    @abstractmethod
-    def getDataNascimento(self):
         pass
 
 class cliente(usuario):
     
-    def __init__(self, nome, cpf, dataNascimento):
-        super().__init__(nome, cpf, dataNascimento)
+    def __init__(self, nome, cpf):
+        super().__init__(nome, cpf)
 
     def getNome(self):
         return self.nome
@@ -34,13 +31,10 @@ class cliente(usuario):
     def getCpf(self):
         return self.cpf
 
-    def getDataNascimento(self):
-        return self.dataNascimento
-    
 class funcionario(usuario):
     
-    def __init__(self, nome, cpf, dataNascimento):
-        super().__init__(nome, cpf, dataNascimento)
+    def __init__(self, nome, cpf):
+        super().__init__(nome, cpf)
 
     def getNome(self):
         return self.nome
@@ -48,9 +42,6 @@ class funcionario(usuario):
     def getCpf(self):
         return self.cpf
 
-    def getDataNascimento(self):
-        return self.dataNascimento
-    
 class livro():
 
     def __init__(self, nome, categoria, editora, dataLancamento):
@@ -73,34 +64,49 @@ class livro():
     
 class emprestimo():
 
-    def __init__(self, funcionario, cliente, livros, dataEmprestimo, dataDevolucao=None):
-        self.funcionario = funcionario
-        self.cliente = cliente
-        self.livros = livros
+    def __init__(self, nomeLivro, categoriaLivro, editoraLivro, clienteNome, clienteCpf, funcionarioNome, dataEmprestimo, dataDevolucao=None):
+        self.nomeLivro = nomeLivro
+        self.categoriaLivro = categoriaLivro
+        self.editoraLivro = editoraLivro
+        self.clienteNome = clienteNome
+        self.clienteCpf = clienteCpf
+        self.funcionarioNome = funcionarioNome
         self.dataEmprestimo = dataEmprestimo
-        self.dataDevolucaoPrevista = dataEmprestimo + timedelta(days=15)
-    
-    def getFuncionario(self):
-        return self.funcionario
+        self.dataDevolucaoPrevista = datetime.strptime(dataEmprestimo, "%Y-%m-%d") + timedelta(days=15)
+        self.dataDevolucao = dataDevolucao
 
-    def getCliente(self):
-        return self.cliente
+    def getNomeLivro(self):
+        return self.nomeLivro
 
-    def getLivros(self):
-        return self.livros
-    
+    def getCategoriaLivro(self):
+        return self.categoriaLivro
+
+    def getEditoraLivro(self):
+        return self.editoraLivro
+
+    def getClienteNome(self):
+        return self.clienteNome
+
+    def getClienteCpf(self):
+        return self.clienteCpf
+
+    def getFuncionarioNome(self):
+        return self.funcionarioNome
+
     def getDataEmprestimo(self):
         return self.dataEmprestimo
-    
+
     def getDataDevolucaoPrevista(self):
         return self.dataDevolucaoPrevista
-    
+
     def getDataDevolucao(self):
         return self.dataDevolucao
 
 class menu():
     
     def menuPrincipal(self):
+    
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("==SISTEMA BIBLIOTECA==\n")
         print("1. Cadastros")
         print("2. Consultas")
@@ -109,6 +115,7 @@ class menu():
         print("5. Sair")
         opcao = None
         opcao = int(input("Opção Desejada: "))
+
 
         if(opcao > 5 or opcao < 1):        #RETORNA 0 CASO A OPÇÃO SELECIONADA SEJA INVALIDA
             opcao = 0
@@ -119,12 +126,15 @@ class menu():
         return opcao                        #RETORNA A OPÇÃO
 
     def menuCadastro(self):
+
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("==CADASTRO==\n")
         print("1. Usuario")
         print("2. Livro")
         print("3. Sair")
         opcao = None
         opcao = int(input("Opção Desejada: "))
+
 
         if(opcao > 3 or opcao < 1):        #RETORNA 0 CASO A OPÇÃO SELECIONADA SEJA INVALIDA
             opcao = 0
@@ -135,6 +145,8 @@ class menu():
         return opcao                        #RETORNA A OPÇÃO
     
     def menuConsulta(self):
+
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("==CONSULTA==\n")
         print("1. Usuarios")
         print("2. Livros")

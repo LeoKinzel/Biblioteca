@@ -1,6 +1,5 @@
-from bibliotecaClasse import biblioteca
-from bibliotecaViews import *
+from bibliotecaClasse import *
 
-biblioteca = biblioteca()
+novaBiblioteca = biblioteca("biblioteca")
 
-biblioteca.consultarLivros()
+novaBiblioteca.exibirMenu()

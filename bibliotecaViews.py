@@ -13,41 +13,34 @@ class dbConsultas():
     def consultaLivrosDisponiveis(self):
         query = "SELECT * FROM LivrosDisponiveis"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
+        return self.cursor.fetchall()
 
     def consultaLivrosEmprestados(self):
         query = "SELECT * FROM LivrosEmprestados"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
-    
+        return self.cursor.fetchall()
+   
     def consultaTodosLivros(self):
-        query = "SELECT * FROM LivrosEmprestados"
+        query = "SELECT * FROM TodosLivros"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
+        return self.cursor.fetchall()
 
     def consultaTodosClientes(self):
         query = "SELECT * FROM TodosClientes"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
+        return self.cursor.fetchall()
     
     def consultaTodosFuncionarios(self):
         query = "SELECT * FROM TodosFuncionarios"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
+        return self.cursor.fetchall()
 
     def consultaTodosEmprestimos(self):
         query = "SELECT * FROM TodosEmprestimos"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
+        return self.cursor.fetchall()
 
     def consultaTodosEmprestimosCorrentes(self):
         query = "SELECT * FROM TodosEmprestimosCorrentes"
         self.cursor.execute(query)
-        self.resultados = self.cursor.fetchall()
-        return self.resultados
+        return self.cursor.fetchall()
