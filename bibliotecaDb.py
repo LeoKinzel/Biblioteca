@@ -75,3 +75,12 @@ class dbConsultas():
         """
         self.cursor.execute(query, (idCliente, idFuncionario, idLivro, dataEmprestimo, dataDevolucaoPrevista))
         self.conexao.commit()
+
+    def devolverLivro(self, idEmprestimo, dataDevolucao):
+        query = """
+            UPDATE Emprestimo
+            SET dataDevolucao = ?
+            WHERE id = ?;
+        """
+        self.cursor.execute(query, (dataDevolucao, idEmprestimo))
+        self.conexao.commit()

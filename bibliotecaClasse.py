@@ -66,7 +66,17 @@ class biblioteca():
 
         print("\nEmprestimo Realizado!")
 
-    #def devolverLivro(self, emprestimo, dataDevolucao):         VERIFICAR
+    def devolverLivro(self,):
+        print("==Emprestimo Correntes==\n")
+        print(self.db.consultaTodosEmprestimosCorrentes())
+        print('\n')
+
+        idEmprestimo = input("Selecione o Id do Livro a ser locado: ")
+        dataDevolucao = input("Data de Devolução: ")
+        self.db.devolverLivro(idEmprestimo, dataDevolucao)
+        self.atualizarDados()
+
+        print("\nEmprestimo Finalizado")
 
     def listarUsuarios(self):
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
@@ -139,11 +149,15 @@ class biblioteca():
                         input()
                         opcao = 0
                         break
-            elif opcao ==3:
+            elif opcao == 3:
                 os.system('cls')
                 self.novoEmprestimo()
                 input()
                 opcao = 0
-                break
+            elif opcao == 4:
+                os.system('cls')
+                self.devolverLivro()
+                input()
+                opcao = 0
         self.db.dbClose()
 
