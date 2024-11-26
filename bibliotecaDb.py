@@ -67,3 +67,11 @@ class dbConsultas():
         """
         self.cursor.execute(query, (nome, categoria, editora, dataLancamento))
         self.conexao.commit()
+
+    def adicionarEmprestimo(self, idCliente, idFuncionario, idLivro, dataEmprestimo, dataDevolucaoPrevista):
+        query = """
+            INSERT INTO Emprestimo (fk_Cliente_id, fk_Funcionaro_id, fk_Livro_id, dataEmprestimo, dataDevolucaoPrevista, dataDevolucao)
+            VALUES (?, ?, ?, ?, ?, NULL);
+        """
+        self.cursor.execute(query, (idCliente, idFuncionario, idLivro, dataEmprestimo, dataDevolucaoPrevista))
+        self.conexao.commit()

@@ -26,7 +26,6 @@ class biblioteca():
         self.db.adicionarUsuario(nome, cpf, data)
         self.atualizarDados()
         print("\nUsuario Adicionado!")
-        input()
 
     def adicionarLivro(self):
         nome = input("Nome: ")
@@ -36,12 +35,36 @@ class biblioteca():
         self.db.adicionarLivro(nome, categoria, editora, dataLancamento)
         self.atualizarDados()
         print("\nLivro Adicionado!")
-        input()
 
-    def realizarEmprestimo(self, funcionario, cliente, livros, dataEmprestimo):
-        novoEmprestimo = emprestimo(funcionario, cliente, livros, dataEmprestimo)
-        self.emprestimos.append(novoEmprestimo)
-        print("Emprestimo realizado") 
+    def novoEmprestimo(self):
+
+        print('\n')
+        print("==Livros Disponiveis==\n")
+        print(self.db.consultaLivrosDisponiveis())
+
+        if not self.db.consultaLivrosDisponiveis():
+            print("\n Sem livros Disponiveis para Locação!")
+            input()
+            return
+        
+        print('\n')
+        print("==Clientes Cadastrados==\n")
+        print(self.db.consultaTodosClientes())
+
+        print('\n')
+        print("==Funcionarios==\n")
+        print(self.db.consultaTodosFuncionarios())
+        print('\n')
+
+        idLivro = input("Selecione o Id do Livro a ser locado: ")
+        idCliente = input("Selecione o Id do Cliente: ")
+        idFuncionario = input("Selecione o Id do Funcionario: ")
+        dataEmprestimo = input("Data do Emprestimo: ")
+        dataDevolucaoPrevista = str(datetime.strptime(dataEmprestimo, "%Y-%m-%d") + timedelta(days=15))[0:10]
+        self.db.adicionarEmprestimo(idCliente, idFuncionario, idLivro, dataEmprestimo, dataDevolucaoPrevista)
+        self.atualizarDados()
+
+        print("\nEmprestimo Realizado!")
 
     #def devolverLivro(self, emprestimo, dataDevolucao):         VERIFICAR
 
@@ -69,6 +92,7 @@ class biblioteca():
             print(f"Data do empréstimo: {emprestimo.getDataEmprestimo()}")
             print(f"Data de devolução prevista: {emprestimo.getDataDevolucaoPrevista()}")
         print('\n')
+
     
     def exibirMenu(self):
         opcao = None
@@ -115,5 +139,11 @@ class biblioteca():
                         input()
                         opcao = 0
                         break
+            elif opcao ==3:
+                os.system('cls')
+                self.novoEmprestimo()
+                input()
+                opcao = 0
+                break
         self.db.dbClose()
 
