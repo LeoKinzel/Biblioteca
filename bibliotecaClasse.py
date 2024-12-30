@@ -71,7 +71,7 @@ class biblioteca():
         print(self.db.consultaTodosEmprestimosCorrentes())
         print('\n')
 
-        idEmprestimo = input("Selecione o Id do Livro a ser locado: ")
+        idEmprestimo = input("Selecione o Id do Livro a ser devolvido: ")
         dataDevolucao = input("Data de Devolução: ")
         self.db.devolverLivro(idEmprestimo, dataDevolucao)
         self.atualizarDados()
